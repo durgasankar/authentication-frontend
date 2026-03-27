@@ -1,12 +1,23 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import useToken from '../hooks/useToken';
 
 const Signup = () => {
     const [signupForm, setsignupForm] = useState({ email: '', password: '', confirmPassword: '' });
     const navigate = useNavigate();
+    const [token, setToken] = useToken();
 
-    const signupHandler = () => {
+    const signupHandler = async () => {
         console.log(signupForm)
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/signup`, {
+            email: signupForm.email,
+            password: signupForm.password
+        })
+        const { token } = response.data;
+        setToken(token);
+        navigate('/');
+
 
     }
     return (
@@ -28,14 +39,14 @@ const Signup = () => {
                 />
                 &nbsp;
                 <input
-                    type="password"
+                    type="text"
                     placeholder='confirm password'
                     value={ signupForm.confirmPassword }
                     onChange={ event => setsignupForm(prevForm => ({ ...prevForm, confirmPassword: event.target.value })) }
                 />
                 &nbsp;
                 <button
-                    disabled={ signupForm.email || signupForm.password || signupForm.password !== signupForm.confirmPassword }
+                    // disabled={ signupForm.email || signupForm.password || signupForm.password !== signupForm.confirmPassword }
                     onClick={ signupHandler }
                 >Sign up
                 </button>
