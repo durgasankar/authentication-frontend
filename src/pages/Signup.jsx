@@ -46,7 +46,7 @@ const Signup = () => {
                 />
                 &nbsp;
                 <button
-                    // disabled={ signupForm.email || signupForm.password || signupForm.password !== signupForm.confirmPassword }
+                    disabled={ !signupForm.email || !signupForm.password || signupForm.password !== signupForm.confirmPassword }
                     onClick={ signupHandler }
                 >Sign up
                 </button>

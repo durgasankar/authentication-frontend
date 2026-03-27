@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
@@ -6,8 +7,11 @@ const Login = () => {
 
     const navigate = useNavigate();
 
-    const loginHandler = () => {
-
+    const loginHandler = async () => {
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/login`, loginForm);
+        const { token } = response.data;
+        console.log(response);
+        navigate('/')
     }
     return (
         <div className='content-container'>
@@ -28,7 +32,7 @@ const Login = () => {
                 />
                 &nbsp;
                 <button
-                    disabled={ loginForm.email || loginForm.password }
+                    disabled={ !loginForm.email || !loginForm.password }
                     onClick={ loginHandler }
                 >Login
                 </button>
