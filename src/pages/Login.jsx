@@ -10,6 +10,7 @@ const Login = () => {
     const loginHandler = async () => {
         const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/login`, loginForm);
         const { token } = response.data;
+        console.log(token)
         navigate('/')
     }
     return (
@@ -17,14 +18,14 @@ const Login = () => {
             <h1>Log In</h1>
             <form >
                 <input
-                    type="email"
+                    type="text"
                     placeholder='abc@email.com'
                     value={ loginForm.email }
                     onChange={ event => setLoginForm(prevForm => ({ ...prevForm, email: event.target.value })) }
                 />
                 &nbsp;
                 <input
-                    type="password"
+                    type="text"
                     placeholder='password'
                     value={ loginForm.password }
                     onChange={ event => setLoginForm(prevForm => ({ ...prevForm, password: event.target.value })) }
