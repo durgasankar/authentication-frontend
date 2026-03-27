@@ -10,7 +10,6 @@ const Login = () => {
     const loginHandler = async () => {
         const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/login`, loginForm);
         const { token } = response.data;
-        console.log(response);
         navigate('/')
     }
     return (
